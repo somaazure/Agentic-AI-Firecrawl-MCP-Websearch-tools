@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent System - URL Scraping & Query</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .container {
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid #404040;
+        }
+        h1 {
+            color: #ffffff;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            background-color: #3a3a3a;
+        }
+        .section h2 {
+            color: #ffffff;
+            margin-top: 0;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        input[type="url"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .info {
+            background-color: #2d4a5e;
+            border: 1px solid #4a6b8a;
+            color: #b8d4f0;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #404040;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            color: #ffffff;
+        }
+        .tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Autonomous AI Agent System</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('scraping')">🌐 URL Scraping</button>
+            <button class="tab" onclick="showTab('query')">💬 Ask Questions</button>
+            <button class="tab" onclick="showTab('status')">📊 System Status</button>
+        </div>
+        
+        <!-- URL Scraping Tab -->
+        <div id="scraping" class="tab-content active">
+            <div class="section">
+                <h2>URL Scraping Interface</h2>
+                
+                <form id="scrapeForm">
+                    <div class="form-group">
+                        <label for="url">URL to Scrape:</label>
+                        <input type="url" id="url" name="url" placeholder="https://example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="deepScrape" name="deepScrape">
+                            <label for="deepScrape">Deep Scrape (More comprehensive)</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit">🔍 Scrape URL</button>
+                </form>
+                
+                <div id="scrapeResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- Query Tab -->
+        <div id="query" class="tab-content">
+            <div class="section">
+                <h2>Ask Questions About Scraped Content</h2>
+                
+                <form id="queryForm">
+                    <div class="form-group">
+                        <label for="question">Your Question:</label>
+                        <textarea id="question" name="question" placeholder="Ask anything about the scraped content... For example: What is the main topic? What are the key points? Who is the author?" required></textarea>
+                    </div>
+                    
+                    <button type="submit">🔍 Ask Question</button>
+                </form>
+                
+                <div id="queryResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- Status Tab -->
+        <div id="status" class="tab-content">
+            <div class="section">
+                <h2>System Status</h2>
+                
+                <button onclick="checkStatus()">🔄 Refresh Status</button>
+                
+                <div id="statusResult" class="result info" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        document.getElementById('scrapeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const url = document.getElementById('url').value;
+            const deepScrape = document.getElementById('deepScrape').checked;
+            const resultDiv = document.getElementById('scrapeResult');
+            
+            // Show loading
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '🔄 Scraping URL... Please wait...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/scrape', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: url,
+                        deep_scrape: deepScrape
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Successfully scraped and stored content!
+
+📊 Results:
+- Chunks stored: ${data.chunks_stored || 0}
+- Source URL: ${data.url || url}
+
+📝 Content Preview:
+${data.content_preview || 'No preview available'}
+
+The content has been processed and stored in the vector database for future queries.`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Scraping failed: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+            }
+        });
+        
+        document.getElementById('queryForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const question = document.getElementById('question').value;
+            const resultDiv = document.getElementById('queryResult');
+            
+            // Show loading
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '🤔 Processing your question... Please wait...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: question
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Answer:
+
+${data.answer || 'No answer provided'}
+
+📊 Source: ${data.source || 'unknown'}
+${data.num_sources ? `- Number of sources: ${data.num_sources}` : ''}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Query failed: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+            }
+        });
+        
+        async function checkStatus() {
+            const resultDiv = document.getElementById('statusResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '🔄 Checking system status...';
+            
+            try {
+                const response = await fetch('http://localhost:8000/status');
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.textContent = `📊 System Status:
+
+System: ${data.system}
+Timestamp: ${new Date(data.timestamp * 1000).toLocaleString()}
+
+Components:
+${Object.entries(data.components || {}).map(([key, value]) => `- ${key}: ${value}`).join('\n')}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error checking status: ${error.message}`;
+            }
+        }
+        
+        // Load initial status
+        window.onload = function() {
+            checkStatus();
+        };
+    </script>
+</body>
+</html> 
