@@ -108,49 +108,22 @@ The system implements intelligent routing between vector database and web search
 ## 📸 Screenshots
 
 ### **1. Web Interface - Ask Questions Tab**
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 🌙 Autonomous AI Agent System                              │
-├─────────────────────────────────────────────────────────────┤
-│ [URL Scraping] [Ask Questions] [System Status]            │
-├─────────────────────────────────────────────────────────────┤
-│ Query: How to build ETL pipeline with Lakeflow?           │
-│                                                             │
-│ Answer: To build an agent that interacts with external    │
-│ tools, use frameworks like LangChain or LangGraph...      │
-│                                                             │
-│ Source: vector_database (Score: 0.921)                    │
-└─────────────────────────────────────────────────────────────┘
-```
+![Ask Questions Interface](ask_questions.png)
+*The dark-themed interface showing the "Ask Questions" tab with query input and answer display*
 
 ### **2. Vector Database Response**
-```
-✅ High Relevance Response (Score: 0.921)
-📊 Source: vector_database
-🔗 URL: https://docs.databricks.com/en/data-engineering/
-📝 Content: Lakeflow Declarative Pipelines provide...
-```
+![Vector Database Response](vector_db_response.png)
+*Example of a high-relevance response using scraped content from vector database*
 
 ### **3. Web Search Response**
-```
-🔄 Fallback to Web Search (Score: 0.676)
-📊 Source: web_search
-🔍 Query: "Who won IPL 2025?"
-📝 Answer: Current information from web search...
-```
+![Web Search Response](web_search_response.png)
+*Example of a response using web search when vector database content is not relevant*
 
 ### **4. MCP Tools Interface**
-```
-🚀 Firecrawl MCP Server
-├── firecrawl_scrape
-├── firecrawl_search  
-└── firecrawl_sitemap
+![MCP Tools](mcp_tools.png)
+*Firecrawl MCP server interface showing available scraping tools*
 
-📡 SSE Endpoint: http://localhost:8000/sse
-🔗 Message Endpoint: http://localhost:8000/messages
-```
-
-> **📝 Note**: Actual screenshots will be added once the application is fully deployed and tested. The above ASCII diagrams show the expected interface layout and functionality.
+> **📝 Note**: These screenshots show the expected interface layout and functionality of the Autonomous AI Agent System.
 
 ## 🔧 Usage
 
