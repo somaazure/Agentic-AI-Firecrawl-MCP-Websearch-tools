@@ -123,6 +123,12 @@ The system implements intelligent routing between vector database and web search
 ![MCP Tools](screenshots/mcp_tools.png)
 *Firecrawl MCP server interface showing available scraping tools*
 
+> **📝 Note**: Screenshots will be added once the application is fully deployed and tested. The images will show:
+> - Dark mode web interface with tabs
+> - Vector database responses with high relevance scores
+> - Web search fallback responses
+> - MCP Firecrawl tools interface
+
 ## 🔧 Usage
 
 ### **Web Interface**
