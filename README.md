@@ -75,6 +75,10 @@ INFO: Uvicorn running on http://localhost:8000 (Press CTRL+C to quit)
 - **SSE endpoint**: http://localhost:8000/sse
 - **API documentation**: http://localhost:8000/docs
 
+#### This interface is much more user-friendly than the Swagger UI and provides a complete web interface for your AI Agent System!
+execute this command in terminal:
+start testing/test_scraping.html
+
 ## 🎯 Smart Routing Mechanism
 
 The system implements intelligent routing between vector database and web search:
@@ -107,23 +111,43 @@ The system implements intelligent routing between vector database and web search
 
 ## 📸 Screenshots
 
-### **1. Web Interface - Ask Questions Tab**
+### **1. Cursor IDE - Using Tools with Chat Agent**
+![Cursor Using Tools Chat Agent](Cursor_UsingTools_ChatAgent.png)
+*Shows the Cursor IDE interface with the AI chat agent actively using MCP tools for web scraping and data processing. The interface displays real-time tool execution and response generation.*
+
+### **2. MCP Tools Available in Cursor**
+![MCP Tools Available in Cursor](MCPToolsAvailable_Cursor.png)
+*Demonstrates the MCP (Model Context Protocol) tools integration in Cursor IDE, showing available Firecrawl scraping tools and their capabilities for web content extraction.*
+
+### **3. Swagger API Interface**
+![Swagger Interface](SwaggerInterface.png)
+*The Swagger UI interface showing all available REST API endpoints for the Autonomous AI Agent System, including scraping, querying, and status monitoring endpoints.*
+
+### **4. User Query - Web Search Response**
+![User Query Web Search](UserQ_Websearch.png)
+*Example of a user query that triggered web search fallback when vector database content wasn't relevant enough, showing the intelligent routing mechanism in action.*
+
+### **5. User Query - Pinecone Database Fetch**
+![User Query Pinecone DB Fetch](UserQ_PineconeDBFetch.png)
+*Demonstrates a high-relevance query that successfully retrieved information from the Pinecone vector database, showing the system's ability to find and return relevant scraped content.*
+
+### **6. Web Interface - Ask Questions Tab**
 ![Ask Questions Interface](ask_questions.png)
-*The dark-themed interface showing the "Ask Questions" tab with query input and answer display*
+*The dark-themed web interface showing the "Ask Questions" tab with query input and answer display, providing a user-friendly way to interact with the AI system.*
 
-### **2. Vector Database Response**
+### **7. Vector Database Response**
 ![Vector Database Response](vector_db_response.png)
-*Example of a high-relevance response using scraped content from vector database*
+*Example of a high-relevance response using scraped content from the vector database, showing how the system returns contextual information from previously scraped URLs.*
 
-### **3. Web Search Response**
+### **8. Web Search Response**
 ![Web Search Response](web_search_response.png)
-*Example of a response using web search when vector database content is not relevant*
+*Example of a response using web search when vector database content is not relevant, demonstrating the fallback mechanism for real-time information retrieval.*
 
-### **4. MCP Tools Interface**
+### **9. MCP Tools Interface**
 ![MCP Tools](mcp_tools.png)
-*Firecrawl MCP server interface showing available scraping tools*
+*Firecrawl MCP server interface showing available scraping tools and their configuration options for comprehensive web content extraction.*
 
-> **📝 Note**: These screenshots show the expected interface layout and functionality of the Autonomous AI Agent System.
+> **📝 Note**: These screenshots showcase the complete workflow of the Autonomous AI Agent System, from development in Cursor IDE with MCP tools integration, to the web interface, API documentation, and intelligent query routing between vector database and web search.
 
 ## 🔧 Usage
 
